@@ -5,14 +5,14 @@ smartlabs:
     baudrate: 57600
   gateway:
     address: 9130346C
-    protocol: 
+    protocol:
       prefix: efef00
       adress: 1234
       suffix: ff
   server:
     startup: 9999
     shutdown: 9991
-    
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/230518-lab?serverTimezone=GMT%2B8&characterEncoding=UTF8
@@ -22,13 +22,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true 
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    
-    
-    
-    
-    
-    
+    show-sql: true
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+
+
+
+
