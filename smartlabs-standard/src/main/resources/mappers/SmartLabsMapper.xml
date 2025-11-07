@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.SmartLabsMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smartlabs.bean.SmartLabs">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="labs_name" jdbcType="VARCHAR" property="labsName" />
+    <result column="infos" jdbcType="VARCHAR" property="infos" />
+    <result column="net_adres" jdbcType="VARCHAR" property="netAdres" />
+    <result column="port" jdbcType="INTEGER" property="port" />
+    <result column="labs_num" jdbcType="CHAR" property="labsNum" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from smart_labs
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.briup.smartlabs.bean.SmartLabs">
+    insert into smart_labs (id, labs_name, infos, 
+      net_adres, port, labs_num
+      )
+    values (#{id,jdbcType=CHAR}, #{labsName,jdbcType=VARCHAR}, #{infos,jdbcType=VARCHAR}, 
+      #{netAdres,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, #{labsNum,jdbcType=CHAR}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.briup.smartlabs.bean.SmartLabs">
+    update smart_labs
+    set labs_name = #{labsName,jdbcType=VARCHAR},
+      infos = #{infos,jdbcType=VARCHAR},
+      net_adres = #{netAdres,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      labs_num = #{labsNum,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, labs_name, infos, net_adres, port, labs_num
+    from smart_labs
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, labs_name, infos, net_adres, port, labs_num
+    from smart_labs
+  </select>
+</mapper>

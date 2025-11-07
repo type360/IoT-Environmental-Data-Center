@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/smartlabs-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/smartlabs-standard/pom.xml" />
+        <option value="$PROJECT_DIR$/environment/pom.xml" />
       </list>
     </option>
   </component>

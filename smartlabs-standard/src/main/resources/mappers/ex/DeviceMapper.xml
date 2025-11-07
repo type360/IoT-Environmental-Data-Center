@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.ex.DeviceMapper">
+	<delete id="deleteByDeviceType">
+		delete from smart_device
+		where device_type = #{typeId}
+	</delete>
+	<update id="unbindDeviceByLabsId">
+		update smart_device
+		set labs_id = null
+		where labs_id in
+		<foreach collection="list" open="(" separator="," close=")"
+			item="id">
+			#{id}
+		</foreach>
+	</update>
+	<resultMap id="BaseResultMap" type="com.briup.smartlabs.bean.ex.Device">
+	    <id column="id" jdbcType="CHAR" property="id" />
+	    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+	    <result column="device_addr" jdbcType="CHAR" property="deviceAddr" />
+	    <result column="device_type" jdbcType="CHAR" property="deviceType" />
+	    <result column="labs_id" jdbcType="CHAR" property="labsId" />
+	    <result column="open" jdbcType="CHAR" property="open" />
+	    <result column="close" jdbcType="CHAR" property="close" />
+	    <result column="max_threshold" jdbcType="INTEGER" property="maxThreshold" />
+	    <result column="min_threshold" jdbcType="INTEGER" property="minThreshold" />
+	  	<result column="type_name" property="typeName"/>
+	  </resultMap>
+	
+	<select id="findByCondition" resultMap="BaseResultMap">
+		select smart_device.id, device_name, device_addr, device_type, labs_id,
+			   open, close, max_threshold,min_threshold,type_name
+		from smart_device ,smart_device_type
+		where smart_device.device_type = smart_device_type.id
+		<if test="typeId!=null and typeId!=''">
+		and device_type = #{typeId}
+		</if>
+		<if test="key!=null and key!=''">
+		and (
+			   device_name like #{key} 
+			 or type_name like #{key} 
+			 or device_addr like #{key}
+			)
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+

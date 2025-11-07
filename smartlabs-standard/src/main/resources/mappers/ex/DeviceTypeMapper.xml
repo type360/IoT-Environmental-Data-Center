@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.ex.DeviceTypeMapper">
+	<insert id="insert" parameterType="com.briup.smartlabs.bean.ex.DeviceType">
+		insert into smart_device_type(id,type_name)
+		values(#{id},#{name})
+	</insert>
+
+	<update id="updateById">
+		update smart_device_type 
+		set type_name = #{name}
+		where id = #{id}
+	</update>
+
+	<delete id="deleteById">
+		delete from smart_device_type
+		where id = #{id}
+	</delete>
+
+	<delete id="deleteByBatch">
+		delete from smart_device_type
+		where id in 
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="existById" resultType="java.lang.String">
+		select id 
+		from smart_device_type
+		where id in 
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
+	<!-- 如果从数据库中检索出的列的名字，和要封装成的对象属性名不一致时
+		 需要自定义resultMap,显示的表明要将select查找的哪个列映射成对象的
+		 哪个属性。
+	 -->
+	<resultMap type="com.briup.smartlabs.bean.ex.DeviceType" 
+			   id="baseResultMap">
+		<id column="id" property="id"/>
+		<result column="type_name" property="name"/>	   
+	</resultMap>
+	<select id="selectByCondition" resultMap="baseResultMap">
+		select id ,type_name 
+		from smart_device_type
+		<where>
+			<if test="key!=null and key!=''">
+				type_name like concat('%',#{key},'%')
+			</if>
+		</where>		
+	</select>
+</mapper>
+
+

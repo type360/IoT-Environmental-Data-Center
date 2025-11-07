@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.briup.smartlabs.mapper.ex.SmartLabsExMapper">
+	<sql id="selectSmart">
+		select id, labs_name, infos, net_adres, port, labs_num
+		from smart_labs
+	</sql>
+
+	<delete id="deleteByBatch">
+
+	</delete>
+
+	<select id="findByLabsNum" 
+			resultMap="com.briup.smartlabs.mapper.SmartLabsMapper.BaseResultMap">
+		<include refid="selectSmart"></include>
+		where labs_num = #{labsNum}
+		<if test="labsId!=null and labsId!=''">
+			and id != #{labsId}
+		</if>
+	</select>
+
+	<select id="findByNetAdres" 
+			resultMap="com.briup.smartlabs.mapper.SmartLabsMapper.BaseResultMap">
+		<include refid="selectSmart"></include>
+		where net_adres = #{netAdres}
+		<if test="labsId!=null and labsId!=''">
+			and id != #{labsId}
+		</if>
+	</select>
+
+	<select id="selectByCondition" resultMap="com.briup.smartlabs.mapper.SmartLabsMapper.BaseResultMap">
+		<include refid="selectSmart"></include>
+		<where>
+			<if test="key!=null and key!=''">
+				labs_name like #{key}
+			  or net_adres like #{key}
+			  or labs_num like #{key}	
+			</if>
+		</where>
+	</select>
+
+	<select id="existByIds" resultType="java.lang.String">
+
+	</select>
+</mapper>

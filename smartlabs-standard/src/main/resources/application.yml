@@ -1,0 +1,45 @@
+#端口号
+server:
+  port: 8088
+
+#设置json数据的日期时区 
+spring:
+  jackson:
+    time-zone: GMT+8
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+#spring.jackson.date-format: 将通过jackson响应回去的json数据的日期部分，格式化。
+#   date-format: yyyy-MM-dd    
+#配置数据源。
+  datasource:
+    url: jdbc:mysql://localhost:3306/230518-lab?serverTimezone=GMT%2B8&characterEncoding=UTF8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: briup
+    
+mybatis:
+  mapper-locations:
+  - classpath:mappers/**/*.xml
+ 
+#配置日志记录，输出sql语句
+logging:
+  level:
+     com.briup.smartlabs.mapper: debug
+  
+swagger:
+  title: 智能实验室服务
+  description: 智能实验室服务api
+  version: 1.0
+  contact:
+    name: briup
+    email: shaoyb@briup.com
+  base-package: com.briup.smartlabs.web.controller
+  authorization:
+    key-name: Authorization
+
+
+
+
+  

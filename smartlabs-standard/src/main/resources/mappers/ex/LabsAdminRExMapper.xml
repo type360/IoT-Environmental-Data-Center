@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.ex.LabsAdminRExMapper">
+	<delete id="deleteByUserId">
+		delete from smart_labs_admin_r 
+		where admin_id = #{id}
+	</delete>
+	<delete id="batchDeleteByUser">
+		delete from smart_labs_admin_r
+		where admin_id in 
+		<foreach item="userid" collection="collection" open="(" separator="," close=")">
+			#{userid}
+		</foreach>
+	</delete>
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.SmartDeviceMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smartlabs.bean.SmartDevice">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_addr" jdbcType="CHAR" property="deviceAddr" />
+    <result column="device_type" jdbcType="CHAR" property="deviceType" />
+    <result column="labs_id" jdbcType="CHAR" property="labsId" />
+    <result column="open" jdbcType="CHAR" property="open" />
+    <result column="close" jdbcType="CHAR" property="close" />
+    <result column="max_threshold" jdbcType="INTEGER" property="maxThreshold" />
+    <result column="min_threshold" jdbcType="INTEGER" property="minThreshold" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from smart_device
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smartlabs.bean.SmartDevice">
+    insert into smart_device (id, device_name, device_addr, 
+      device_type, labs_id, open, close, 
+      max_threshold, min_threshold)
+    values (#{id,jdbcType=CHAR}, #{deviceName,jdbcType=VARCHAR}, #{deviceAddr,jdbcType=CHAR}, 
+      #{deviceType,jdbcType=CHAR}, #{labsId,jdbcType=CHAR}, #{open,jdbcType=CHAR}, #{close,jdbcType=CHAR}, 
+      #{maxThreshold,jdbcType=INTEGER}, #{minThreshold,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.briup.smartlabs.bean.SmartDevice">
+    update smart_device
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_addr = #{deviceAddr,jdbcType=CHAR},
+      device_type = #{deviceType,jdbcType=CHAR},
+      labs_id = #{labsId,jdbcType=CHAR},
+      open = #{open,jdbcType=CHAR},
+      close = #{close,jdbcType=CHAR},
+      max_threshold = #{maxThreshold,jdbcType=INTEGER},
+      min_threshold = #{minThreshold,jdbcType=INTEGER}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, device_name, device_addr, device_type, labs_id, open, close, max_threshold, 
+    min_threshold
+    from smart_device
+    where id = #{id,jdbcType=CHAR}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, device_name, device_addr, device_type, labs_id, open, close, max_threshold, 
+    min_threshold
+    from smart_device
+  </select>
+</mapper>

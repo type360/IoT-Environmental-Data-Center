@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.SmartLabsAdminRMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smartlabs.bean.SmartLabsAdminR">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="labs_id" jdbcType="CHAR" property="labsId" />
+    <result column="admin_id" jdbcType="CHAR" property="adminId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from smart_labs_admin_r
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smartlabs.bean.SmartLabsAdminR">
+    insert into smart_labs_admin_r (id, labs_id, admin_id)
+    values (#{id,jdbcType=CHAR}, #{labsId,jdbcType=CHAR}, #{adminId,jdbcType=CHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smartlabs.bean.SmartLabsAdminR">
+    update smart_labs_admin_r
+    set labs_id = #{labsId,jdbcType=CHAR},
+      admin_id = #{adminId,jdbcType=CHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, labs_id, admin_id
+    from smart_labs_admin_r
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, labs_id, admin_id
+    from smart_labs_admin_r
+  </select>
+</mapper>

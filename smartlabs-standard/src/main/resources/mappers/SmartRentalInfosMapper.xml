@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.SmartRentalInfosMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smartlabs.bean.SmartRentalInfos">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="labs_id" jdbcType="CHAR" property="labsId" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="approval_status" jdbcType="TINYINT" property="approvalStatus" />
+    <result column="approval_user" jdbcType="BIGINT" property="approvalUser" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from smart_rental_infos
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smartlabs.bean.SmartRentalInfos">
+    insert into smart_rental_infos (id, labs_id, start_date, 
+      end_date, approval_status, approval_user
+      )
+    values (#{id,jdbcType=CHAR}, #{labsId,jdbcType=CHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{approvalStatus,jdbcType=TINYINT}, #{approvalUser,jdbcType=BIGINT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smartlabs.bean.SmartRentalInfos">
+    update smart_rental_infos
+    set labs_id = #{labsId,jdbcType=CHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      approval_status = #{approvalStatus,jdbcType=TINYINT},
+      approval_user = #{approvalUser,jdbcType=BIGINT}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, labs_id, start_date, end_date, approval_status, approval_user
+    from smart_rental_infos
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, labs_id, start_date, end_date, approval_status, approval_user
+    from smart_rental_infos
+  </select>
+</mapper>

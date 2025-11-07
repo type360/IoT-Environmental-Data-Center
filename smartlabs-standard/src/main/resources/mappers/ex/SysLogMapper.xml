@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.ex.SysLogMapper">
+	<insert id="insert" parameterType="com.briup.smartlabs.bean.ex.SysLog">
+		insert into sys_log(id,username,operation,method,
+							params,time,create_date,ip,url)
+		values(#{id},#{username},#{operation},#{method},#{params},
+			   #{time},#{createDate},#{ip},#{uri})
+	</insert>
+
+	<resultMap id="baseMap" type="com.briup.smartlabs.bean.ex.SysLog"
+		autoMapping="true">
+		<id column="id" property="id"/>
+		<result column="create_date" property="createDate"/>
+		<result column="url" property="uri"/>
+	</resultMap>
+	<select id="findByCondition" resultMap="baseMap">
+		select id,username,operation,method,params,time,create_date,ip,url
+		from sys_log
+		<where>
+			<if test="begin!=null">
+				create_date >= #{begin}
+			</if>
+			<if test="end!=null">
+				and create_date &lt;= #{end}
+			</if>
+			<if test="key!=null and key!=''">
+				and (username like #{key} or operation like #{key}
+					or method like #{key})
+			</if>
+		</where>
+		order by create_date desc
+	</select>
+</mapper>
+
+

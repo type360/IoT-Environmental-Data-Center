@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.SmartAlarmInfoMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smartlabs.bean.SmartAlarmInfo">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="alarm_type" jdbcType="CHAR" property="alarmType" />
+    <result column="alarm_cause" jdbcType="CHAR" property="alarmCause" />
+    <result column="alarm_date" jdbcType="TIMESTAMP" property="alarmDate" />
+    <result column="alarm_level" jdbcType="TINYINT" property="alarmLevel" />
+    <result column="alarm_status" jdbcType="VARCHAR" property="alarmStatus" />
+    <result column="device_adres" jdbcType="VARCHAR" property="deviceAdres" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from smart_alarm_info
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smartlabs.bean.SmartAlarmInfo">
+    insert into smart_alarm_info (id, alarm_type, alarm_cause, 
+      alarm_date, alarm_level, alarm_status, 
+      device_adres)
+    values (#{id,jdbcType=CHAR}, #{alarmType,jdbcType=CHAR}, #{alarmCause,jdbcType=CHAR}, 
+      #{alarmDate,jdbcType=TIMESTAMP}, #{alarmLevel,jdbcType=TINYINT}, #{alarmStatus,jdbcType=VARCHAR}, 
+      #{deviceAdres,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smartlabs.bean.SmartAlarmInfo">
+    update smart_alarm_info
+    set alarm_type = #{alarmType,jdbcType=CHAR},
+      alarm_cause = #{alarmCause,jdbcType=CHAR},
+      alarm_date = #{alarmDate,jdbcType=TIMESTAMP},
+      alarm_level = #{alarmLevel,jdbcType=TINYINT},
+      alarm_status = #{alarmStatus,jdbcType=VARCHAR},
+      device_adres = #{deviceAdres,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, alarm_type, alarm_cause, alarm_date, alarm_level, alarm_status, device_adres
+    from smart_alarm_info
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, alarm_type, alarm_cause, alarm_date, alarm_level, alarm_status, device_adres
+    from smart_alarm_info
+  </select>
+</mapper>

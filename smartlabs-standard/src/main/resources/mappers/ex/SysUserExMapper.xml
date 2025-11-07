@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.ex.SysUserExMapper">
+	<select id="loadByName"
+		resultMap="com.briup.smartlabs.mapper.SysUserMapper.BaseResultMap">
+		select user_id, username, realname, password, email, 
+			   mobile,status, create_user_id,create_time
+		from sys_user
+		where username = #{username}
+	</select>
+	
+	<delete id="batchDeleteById">
+		delete from sys_user
+		where user_id in 
+		<foreach item ="userid" collection="collection" open="(" separator="," close=")">
+			#{userid}
+		</foreach>
+	</delete>
+</mapper>

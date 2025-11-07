@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.SmartAlarmThresholdMapper">
+  <resultMap id="BaseResultMap" type="com.briup.smartlabs.bean.SmartAlarmThreshold">
+    <id column="id" jdbcType="CHAR" property="id" />
+    <result column="labs_id" jdbcType="CHAR" property="labsId" />
+    <result column="pm25_limit" jdbcType="DOUBLE" property="pm25Limit" />
+    <result column="co2_limit" jdbcType="DOUBLE" property="co2Limit" />
+    <result column="ch2o_limit" jdbcType="DOUBLE" property="ch2oLimit" />
+    <result column="tvoc_limit" jdbcType="DOUBLE" property="tvocLimit" />
+    <result column="temperature_limit" jdbcType="DOUBLE" property="temperatureLimit" />
+    <result column="humidity_limit" jdbcType="DOUBLE" property="humidityLimit" />
+    <result column="air_limit" jdbcType="DOUBLE" property="airLimit" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from smart_alarm_threshold
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.briup.smartlabs.bean.SmartAlarmThreshold">
+    insert into smart_alarm_threshold (id, labs_id, pm25_limit, 
+      co2_limit, ch2o_limit, tvoc_limit, 
+      temperature_limit, humidity_limit, air_limit
+      )
+    values (#{id,jdbcType=CHAR}, #{labsId,jdbcType=CHAR}, #{pm25Limit,jdbcType=DOUBLE}, 
+      #{co2Limit,jdbcType=DOUBLE}, #{ch2oLimit,jdbcType=DOUBLE}, #{tvocLimit,jdbcType=DOUBLE}, 
+      #{temperatureLimit,jdbcType=DOUBLE}, #{humidityLimit,jdbcType=DOUBLE}, #{airLimit,jdbcType=DOUBLE}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.briup.smartlabs.bean.SmartAlarmThreshold">
+    update smart_alarm_threshold
+    set labs_id = #{labsId,jdbcType=CHAR},
+      pm25_limit = #{pm25Limit,jdbcType=DOUBLE},
+      co2_limit = #{co2Limit,jdbcType=DOUBLE},
+      ch2o_limit = #{ch2oLimit,jdbcType=DOUBLE},
+      tvoc_limit = #{tvocLimit,jdbcType=DOUBLE},
+      temperature_limit = #{temperatureLimit,jdbcType=DOUBLE},
+      humidity_limit = #{humidityLimit,jdbcType=DOUBLE},
+      air_limit = #{airLimit,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, labs_id, pm25_limit, co2_limit, ch2o_limit, tvoc_limit, temperature_limit, 
+    humidity_limit, air_limit
+    from smart_alarm_threshold
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, labs_id, pm25_limit, co2_limit, ch2o_limit, tvoc_limit, temperature_limit, 
+    humidity_limit, air_limit
+    from smart_alarm_threshold
+  </select>
+</mapper>

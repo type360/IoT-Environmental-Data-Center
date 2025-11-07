@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.smartlabs.mapper.ex.SysMenuExMapper">
+	<select id="findMenuByUsername" 
+			resultMap="com.briup.smartlabs.mapper.SysMenuMapper.BaseResultMap">
+		select m.menu_id,parent_id,name,url,perms,type,icon,order_num
+    	from sys_menu m
+        join sys_role_menu rm on m.menu_id = rm.menu_id
+        join sys_role r on rm.role_id = r.role_id
+        join sys_user_role ur on r.role_id = ur.role_id
+        where ur.user_id = 
+        	(select user_id from sys_user
+        	 where username = #{username}
+        	)
+	</select>
+	<select id="findNavMenuByUserId" 
+			resultMap="com.briup.smartlabs.mapper.SysMenuMapper.BaseResultMap">
+		select m.menu_id,parent_id,name,url,perms,type,icon,order_num
+    	from sys_menu m
+    	<if test="id!=1">
+	        join sys_role_menu rm on m.menu_id = rm.menu_id
+	        join sys_user_role ur on rm.role_id = ur.role_id
+    	</if>
+    	where m.type!=2
+    	<if test="id!=1">
+	    	and ur.user_id = #{id}
+    	</if>  
+        order by m.type
+	</select>
+	<resultMap type="com.briup.smartlabs.bean.ex.SysMenuEx" 
+			   id="menuTree">
+		<id column="menu_id" property="menuId"/>
+		<result column="name" property="name"/>
+		<collection property="subs" ofType="com.briup.smartlabs.bean.ex.SysMenuEx">
+			<id column="m_menu_id" property="menuId"/>
+			<result column="m_name" property="name"/>
+			<collection property="subs" ofType="com.briup.smartlabs.bean.ex.SysMenuEx">
+				<id column="b_menu_id" property="menuId"/>
+				<result column="b_name" property="name"/>
+			</collection>
+		</collection>		   
+	</resultMap>
+	<select id="findMenuTree" resultMap="menuTree">
+		select d.menu_id,d.name,
+			   m.menu_id m_menu_id ,m.name m_name,
+			   b.menu_id b_menu_id ,b.name b_name
+		from sys_menu d 
+			 left join sys_menu m on d.menu_id = m.parent_id
+			 left join sys_menu b on b.parent_id = m.menu_id
+		where d.parent_id = 0	
+	</select>
+	<resultMap type="com.briup.smartlabs.bean.ex.MenuEx2" id="ex2Result" 
+			   extends="com.briup.smartlabs.mapper.SysMenuMapper.BaseResultMap">
+		<result column="parent_name" property="parentName"/>
+	</resultMap>
+	
+	<select id="selectMenuByParent" resultMap="ex2Result">
+		select m.menu_id,m.name,m.icon, m.url,m.perms,m.type,m.parent_id,m.order_num,
+			   p.name parent_name
+		from sys_menu m left join sys_menu p on m.parent_id = p.menu_id
+		where m.parent_id = #{parentId}
+	</select>
+</mapper>
+
+
+
+
+
