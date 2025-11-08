@@ -2,13 +2,17 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="smartlabs-standard" />
+        <module name="env-gather-impl" />
         <module name="smartlabs-gateway" />
         <module name="environment" />
+        <module name="env-gather-interface" />
+        <module name="env-gather-entity" />
       </profile>
     </annotationProcessing>
   </component>
