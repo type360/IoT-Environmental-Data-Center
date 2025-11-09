@@ -19,12 +19,20 @@ public class ServerImpl implements Server {
     public void reciver() throws Exception {
         try (ServerSocket ss = new ServerSocket(9999);){
             System.out.println("服务器正在启动" + ss.getLocalPort()+"等待客户端连接");
-            try (Socket s = ss.accept();
-                 ObjectInputStream ois = new ObjectInputStream(s.getInputStream());){
-                Collection<Environment> c = (Collection<Environment>) ois.readObject();
-                System.out.println("服务器接收到数据" + c.size());
-            }catch (Exception e){
-                e.printStackTrace();
+            while (true) {//while循环实现一直接受客户端数据
+                Socket s = ss.accept();
+                new Thread(new Runnable() {//一个Socket绑定一个线程
+                    @Override
+                    public void run() {
+                        try (ObjectInputStream ois = new ObjectInputStream(s.getInputStream());){
+                            System.out.println("服务端接收到连接" + s);
+                            Collection<Environment> c = (Collection<Environment>) ois.readObject();
+                            System.out.println("服务器接收到数据" + c.size());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
