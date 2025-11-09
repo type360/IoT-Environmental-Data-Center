@@ -1,5 +1,6 @@
 package com.briup.smart.env.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -8,7 +9,7 @@ import java.sql.Timestamp;
  * @Description：环境类
  * // 浅拷贝|浅克隆 实现Cloneable接口
  */
-public class Environment implements Cloneable{
+public class Environment implements Cloneable, Serializable {
     // 发送端id
     private String srcId;
     // 树莓派系统id
