@@ -7,11 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="env-gather-impl" />
         <module name="smartlabs-standard" />
         <module name="smartlabs-gateway" />
         <module name="environment" />
+        <module name="jdbc-demo" />
         <module name="env-gather-interface" />
+        <module name="env-gather-impl" />
         <module name="env-gather-entity" />
       </profile>
     </annotationProcessing>

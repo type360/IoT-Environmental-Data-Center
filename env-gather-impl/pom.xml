@@ -7,6 +7,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>env-gather-impl</name>
     <description>env-gather-impl</description>
+    <parent>
+        <groupId>com.briup</groupId>
+        <artifactId>IoT-Environmental-Data-Center</artifactId>
+        <version>1.0.0</version> <!-- 需要填写实际的版本号 -->
+    </parent>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,9 +30,18 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.briup</groupId>
             <artifactId>env-gather-interface</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <dependencyManagement>

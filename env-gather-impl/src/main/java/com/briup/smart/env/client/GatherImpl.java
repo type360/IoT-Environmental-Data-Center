@@ -1,6 +1,7 @@
 package com.briup.smart.env.client;
 
 import com.briup.smart.env.entity.Environment;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,6 +18,7 @@ import java.util.List;
  * @create 2025/11/08 21:37
  **/
 public class GatherImpl implements Gather {
+    Logger logger = Logger.getRootLogger();
     @Override
     public Collection<Environment> gather() throws Exception {
         //1.读取文件data-file
@@ -69,17 +71,17 @@ public class GatherImpl implements Gather {
                 list.add(env);
 
             });
-            System.out.println("总数据量："+list.size());
+            logger.debug("总数据量："+list.size());
             //温湿度条数
             long wenshidu = list.stream()
                     .filter(e -> e.getSersorAddress().equals("16"))
                     .count();
-            System.out.println("wenshidu = "+ wenshidu);
+            logger.debug("wenshidu = "+ wenshidu);
             //二氧化碳条数
             long  eryanghuatan = list.stream()
                     .filter(e -> e.getSersorAddress().equals("256"))
                     .count();
-            System.out.println("eryanghuatan = "+ eryanghuatan);
+            logger.debug("eryanghuatan = "+ eryanghuatan);
             //温湿度条数
             long guangzhao = list.stream()
                     .filter(e -> e.getSersorAddress().equals("1280"))
@@ -88,6 +90,7 @@ public class GatherImpl implements Gather {
             return list;
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error("采集错误");
         }
 
         //3.将环境对象存储到集合中

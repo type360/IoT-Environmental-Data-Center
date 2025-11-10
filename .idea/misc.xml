@@ -10,6 +10,8 @@
         <option value="$PROJECT_DIR$/env-gather-entity/pom.xml" />
         <option value="$PROJECT_DIR$/env-gather-impl/pom.xml" />
         <option value="$PROJECT_DIR$/env-gather-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/jdbc-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
